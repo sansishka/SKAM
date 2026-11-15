@@ -15,7 +15,7 @@ jobs:
         run: |
           mkdir -p SKAM_Android
           unzip -q app.zip -d SKAM_Android
-          ls -R SKAM_Android/app | head -30
+          cat SKAM_Android/app/build.gradle.kts
           cp build.gradle.kts gradle.properties README.md settings.gradle.kts SKAM_Android/
 
       - name: Setup Java

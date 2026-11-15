@@ -28,10 +28,11 @@ jobs:
         with:
           gradle-version: '8.9'
 
-      - name: Fix JVM targets
+      - name: Configure JVM 17
         run: |
-          sed -i 's/JavaVersion.VERSION_1_8/JavaVersion.VERSION_17/g' SKAM_Android/app/build.gradle.kts
-          sed -i 's/JavaVersion.VERSION_1_8/JavaVersion.VERSION_17/g' SKAM_Android/build.gradle.kts
+          sed -i 's/VERSION_1_8/VERSION_17/g' SKAM_Android/app/build.gradle.kts
+          sed -i 's/jvmTarget = "1.8"/jvmTarget = "17"/g' SKAM_Android/app/build.gradle.kts
+          sed -i 's/jvmTarget = "1.8"/jvmTarget = "17"/g' SKAM_Android/build.gradle.kts
           grep -n -E 'sourceCompatibility|targetCompatibility|jvmTarget' SKAM_Android/app/build.gradle.kts
 
       - name: Build APK

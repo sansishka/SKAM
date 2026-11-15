@@ -15,7 +15,6 @@ jobs:
         run: |
           mkdir -p SKAM_Android
           unzip -q app.zip -d SKAM_Android
-          cat SKAM_Android/app/build.gradle.kts
           cp build.gradle.kts gradle.properties README.md settings.gradle.kts SKAM_Android/
 
       - name: Setup Java
@@ -28,6 +27,12 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
+
+      - name: Fix JVM targets
+        run: |
+          sed -i 's/JavaVersion.VERSION_1_8/JavaVersion.VERSION_17/g' SKAM_Android/app/build.gradle.kts
+          sed -i 's/JavaVersion.VERSION_1_8/JavaVersion.VERSION_17/g' SKAM_Android/build.gradle.kts
+          grep -n -E 'sourceCompatibility|targetCompatibility|jvmTarget' SKAM_Android/app/build.gradle.kts
 
       - name: Build APK
         run: gradle -p SKAM_Android assembleDebug

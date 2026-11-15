@@ -1,3 +1,4 @@
+
 name: Build SKAM APK
 
 on:
@@ -12,7 +13,10 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Extract project
-        run: unzip -q SKAM_Android_Prototype.zip
+        run: |
+          mkdir -p SKAM_Android
+          unzip -q app.zip -d SKAM_Android
+          cp build.gradle.kts gradle.properties README.md settings.gradle.kts SKAM_Android/
 
       - name: Setup Java
         uses: actions/setup-java@v4
